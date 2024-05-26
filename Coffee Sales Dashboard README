@@ -1,0 +1,63 @@
+This document outlines the steps taken creating the Coffee Sales Interactive Dashboard from the raw Coffee Sales excel workbook.
+
+-The workbook contains missing values in the orders sheet that can be populated using XLookup and the other workbook sheets so that is where I'll start.
+
+-For the Customer Name, Email, and Country columns, XLookup was used to return the corresponding value needed from the customers sheet using the customer ID.
+
+-For the Coffee Type, Roast Type, Size and Unit Price columns, the Index function is used to dynamically update the missing column values using several Match functions
+
+within the Index function. Once the function is written in the first empty cell of the Coffee Type column it can be dragged across the other 3 columns and autofill
+
+will correctly Index the other missing row values thanks to the absolute formatting in the Match functions. With I2:M2 correctly filled in, while still selected,
+
+autofill will complete the rest of the missing column entries in each column.
+
+-One column that would be ideal to update is the Coffee Type column so users can see the full names of each roast type. This can be done using several IF functions listing 
+
+the different Coffee Types which will be written in a new column titled Coffee Type Name. This makes readability a bit nicer. The same combination of multiple IF functions
+
+is also useful for renaming the roast types to letters to their names (light, medium, dark) so this will be done in another new column next to Coffee Type Name titled Roast Type Name.
+
+-Currently the Order Date column is listed in an all number format which can lead to confusion if you are working with coworkers or collaborators who live in different parts 
+
+of the world and list dates in a different format than mmddyyyy, such as ddmmyyyy. A custom format will allow the Order Date cells display the first 3 letters of the month to 
+
+make the date information very clear to anyone looking at it.
+
+-The Size column currently does not show the unit of measurement. This can also easily be added using custom formatting (the units are kg in this workbook).
+
+-The final formatting update is to format the Unit Price and Sales as currency ($).
+
+-A quick check of all cells shows there are also no duplicate entries in the orders sheet and now pivot tables and pivot charts can be inserted.
+
+-The first pivot table to be created maps Coffee Type Name to the columns and the year/month to the rows. The goal is build a dashboard for filtering Total Sales over a period of time
+
+by Coffee Type Name. 
+
+-Using this pivot table a line chart can be inserted for visualization of the coffee sales over time. From there, selecting the line chart makes the ‘PivotChart Analyze’
+
+menu appear up top and a timeline can be inserted to filter both the pivot table results and chart results based upon the timeline selected.
+
+-The next step in building the dashboard is inserting slicers which are a visual filter that allows users to filter data in tables, pivot tables, and pivot charts. Currently there is no column
+
+indicating if customers are loyalty members or not but this data can be looked up from the customers sheet. Once the XLookup function has populated loyalty column, the pivot tables and charts 
+
+will need to be refreshed to reflect the newly added column.
+
+-Now, slicers will be inserted and formatted for the Size, Roast Type Name and if the customer is a Loyalty member or not.
+
+-The next pivot table will need to be created copying the previously made sheet in order to make sure the slicers and other charts all sync properly across sheets.
+
+-After copying the first pivot table sheet, the pivot table is modified to look at the sum of sales by country. A bar chart is inserted comparing the sales.
+
+-The final pivot chart will display the top 5 customers by sales. Once again, the countries sheet can be copied and modified so that everything stays connected.
+
+-Now, all of the pivot tables, slicers, and the timeline can be cut and pasted into a single sheet to assemble the dashboard. Once they are assembled in a pleasing
+
+configuration the final step is to update the reported connections. Currently the Total Sales Over Time table is the only table that updates when any of the slicer filters or timeline are modified.
+
+Using the timeline and slicer tabs respectively and selecting Report Connections allows the other 2 tables to be tied into the connections and now they will update anytime the filters are modified.
+
+-This completes the Coffee Sales Interactive Dashboard.
+
+- The file Coffee_Orders_interactive_dashboard.xlsx in the repository contains the completed dashboard, please check it out and thank you for reading!
